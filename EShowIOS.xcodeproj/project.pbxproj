@@ -86,6 +86,9 @@
 		310E20581D5AF4910082C55D /* WYJAddressPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 310E20571D5AF4910082C55D /* WYJAddressPicker.m */; };
 		310E205A1D5AF53E0082C55D /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 310E20591D5AF53E0082C55D /* city.plist */; };
 		310F9E1F1D7FBF6D00AB7E0C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 310F9E211D7FBF6D00AB7E0C /* Localizable.strings */; };
+		310F9E291D801E1900AB7E0C /* MessageDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310F9E241D801E1900AB7E0C /* MessageDetailsViewController.m */; };
+		310F9E2A1D801E1900AB7E0C /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310F9E261D801E1900AB7E0C /* NewTaskViewController.m */; };
+		310F9E2B1D801E1900AB7E0C /* NewTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310F9E281D801E1900AB7E0C /* NewTweetViewController.m */; };
 		3117EE3E1D61736F0006A42E /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 3117EE2E1D61736F0006A42E /* bitstream.c */; };
 		3117EE3F1D61736F0006A42E /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 3117EE301D61736F0006A42E /* mask.c */; };
 		3117EE411D61736F0006A42E /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3117EE341D61736F0006A42E /* qrencode.c */; };
@@ -532,6 +535,12 @@
 		310E20591D5AF53E0082C55D /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		310F9E201D7FBF6D00AB7E0C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		310F9E221D7FBF7400AB7E0C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		310F9E231D801E1900AB7E0C /* MessageDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailsViewController.h; sourceTree = "<group>"; };
+		310F9E241D801E1900AB7E0C /* MessageDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailsViewController.m; sourceTree = "<group>"; };
+		310F9E251D801E1900AB7E0C /* NewTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskViewController.h; sourceTree = "<group>"; };
+		310F9E261D801E1900AB7E0C /* NewTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskViewController.m; sourceTree = "<group>"; };
+		310F9E271D801E1900AB7E0C /* NewTweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTweetViewController.h; sourceTree = "<group>"; };
+		310F9E281D801E1900AB7E0C /* NewTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTweetViewController.m; sourceTree = "<group>"; };
 		3117EE2E1D61736F0006A42E /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		3117EE2F1D61736F0006A42E /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		3117EE301D61736F0006A42E /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -2440,6 +2449,12 @@
 				3117EE541D619CE20006A42E /* ScanResultViewController.m */,
 				3117EE561D61AD1D0006A42E /* ScanResultWebViewController.h */,
 				3117EE571D61AD1D0006A42E /* ScanResultWebViewController.m */,
+				310F9E231D801E1900AB7E0C /* MessageDetailsViewController.h */,
+				310F9E241D801E1900AB7E0C /* MessageDetailsViewController.m */,
+				310F9E251D801E1900AB7E0C /* NewTaskViewController.h */,
+				310F9E261D801E1900AB7E0C /* NewTaskViewController.m */,
+				310F9E271D801E1900AB7E0C /* NewTweetViewController.h */,
+				310F9E281D801E1900AB7E0C /* NewTweetViewController.m */,
 			);
 			path = ScanViewController;
 			sourceTree = "<group>";
@@ -3271,6 +3286,7 @@
 				A3E8E1641CB5117E009D0CB5 /* RecentCityCell.m in Sources */,
 				316810E01D7EAFDF00EEBD26 /* MyChatroomListViewController.m in Sources */,
 				31680FEC1D7EAB1A00EEBD26 /* EaseEmojiEmoticons.m in Sources */,
+				310F9E2A1D801E1900AB7E0C /* NewTaskViewController.m in Sources */,
 				316810E31D7EAFDF00EEBD26 /* AddFriendCell.m in Sources */,
 				310C673E1D6D2E3A009430C5 /* ZFFileModel.m in Sources */,
 				316810DC1D7EAFDF00EEBD26 /* SearchChatViewController.m in Sources */,
@@ -3357,6 +3373,7 @@
 				316810F11D7EAFDF00EEBD26 /* RobotListViewController.m in Sources */,
 				313815701D6C50AE003A4DB0 /* downloadingViewCell.m in Sources */,
 				31680F9B1D7EAB1900EEBD26 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				310F9E2B1D801E1900AB7E0C /* NewTweetViewController.m in Sources */,
 				316810D41D7EAFDF00EEBD26 /* ContactView.m in Sources */,
 				316AE0D11D7D601300E35EBC /* ChatAttachment.m in Sources */,
 				A3C914651CB7BDDB00011552 /* PopMenu.m in Sources */,
@@ -3396,6 +3413,7 @@
 				3168100B1D7EAB1A00EEBD26 /* EaseConversationCell.m in Sources */,
 				31680E701D7EA9DC00EEBD26 /* AppDelegate+Parse.m in Sources */,
 				31680FDA1D7EAB1900EEBD26 /* PSTGridLayoutInfo.m in Sources */,
+				310F9E291D801E1900AB7E0C /* MessageDetailsViewController.m in Sources */,
 				316810091D7EAB1A00EEBD26 /* EaseChatBarMoreView.m in Sources */,
 				31680FEF1D7EAB1A00EEBD26 /* FixFopen.c in Sources */,
 				31680FC71D7EAB1900EEBD26 /* EMSDWebImagePrefetcher.m in Sources */,

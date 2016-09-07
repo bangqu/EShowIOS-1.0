@@ -28,7 +28,15 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "Pingpp.h"
 
-@interface AppDelegate ()
+#import "GeTuiSdk.h"     // GetuiSdk头文件，需要使用的地方需要添加此代码
+#import <AudioToolbox/AudioToolbox.h>//系统震动
+/// 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
+#define kGtAppId           @"8UGpkIpo9P81RKeopgT7B9"
+#define kGtAppKey          @"WKnc5Q0tXn8SFi0eS0GYy9"
+#define kGtAppSecret       @"RZ99JsNCwX6jlOCaP9gWV8"
+@interface AppDelegate ()<GeTuiSdkDelegate>{
+    NSMutableArray *messageArr;//通知消息
+}
 
 @end
 #define EaseMobAppKey @"daoqun#eshowios"
@@ -54,8 +62,20 @@
     
     [self customizeInterface];
     
+    //个推
+    // 通过个推平台分配的appId、 appKey 、appSecret 启动SDK，注：该方法需要在主线程中调用
+    [GeTuiSdk startSdkWithAppId:kGtAppId appKey:kGtAppKey appSecret:kGtAppSecret delegate:self];
+    //[1-2]:设置是否后台运行开关
+    [GeTuiSdk runBackgroundEnable:YES];
+    //[1-3]:设置电子围栏功能，开启LBS定位服务 和 是否允许SDK 弹出用户定位请求
+    [GeTuiSdk lbsLocationEnable:YES andUserVerify:YES];
+    // 注册APNS
+    [self registerUserNotification];
+    // 绑定别名
+    [GeTuiSdk bindAlias:@"王意"];
+    messageArr = [NSMutableArray array];
 
-    
+
 //    if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
 //        [[UINavigationBar appearance] setBarTintColor:RGBACOLOR(30, 167, 252, 1)];
 //        [[UINavigationBar appearance] setTitleTextAttributes:
@@ -99,6 +119,34 @@ didFinishLaunchingWithOptions:launchOptions
 
     return YES;
 }
+/** 注册APNS */
+- (void)registerUserNotification{
+#ifdef __IPHONE_8_0
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        
+        UIUserNotificationType types = (UIUserNotificationTypeAlert |
+                                        UIUserNotificationTypeSound |
+                                        UIUserNotificationTypeBadge);
+        
+        UIUserNotificationSettings *settings;
+        settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        
+    } else {
+        UIRemoteNotificationType apn_type = (UIRemoteNotificationType)(UIRemoteNotificationTypeAlert |
+                                                                       UIRemoteNotificationTypeSound |
+                                                                       UIRemoteNotificationTypeBadge);
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:apn_type];
+    }
+#else
+    UIRemoteNotificationType apn_type = (UIRemoteNotificationType)(UIRemoteNotificationTypeAlert |
+                                                                   UIRemoteNotificationTypeSound |
+                                                                   UIRemoteNotificationTypeBadge);
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:apn_type];
+#endif
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     if (_mainController) {
@@ -146,9 +194,69 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"token----%@", token);
+    
+    //向个推服务器注册deviceToken
+    [GeTuiSdk registerDeviceToken:token];
+    //---------------//
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [[EMClient sharedClient] bindDeviceToken:deviceToken];
     });
+}
+/** SDK遇到错误回调 */
+- (void)GeTuiSdkDidOccurError:(NSError *)error {
+    //个推错误报告，集成步骤发生的任何错误都在这里通知，如果集成后，无法正常收到消息，查看这里的通知。
+    NSLog(@"\n>>>[GexinSdk error]:%@\n\n", [error localizedDescription]);
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    /// Background Fetch 恢复SDK 运行
+    [GeTuiSdk resume];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+/** SDK收到透传消息回调 */
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
+    //收到个推消息
+    NSString *payloadMsg = nil;
+    if (payloadData) {
+        payloadMsg = [[NSString alloc] initWithBytes:payloadData.bytes
+                                              length:payloadData.length
+                                            encoding:NSUTF8StringEncoding];
+    }
+    //[[NSString alloc]initWithData:payloadData encoding:NSUTF8StringEncoding];
+    [messageArr addObject:payloadMsg];
+    NSLog(@"消息:%@", payloadMsg);
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    [userd setObject:messageArr forKey:@"messageArray"];
+    
+    if ([[userd objectForKey:@"MusicRemind"] isEqualToString:@"NO"]) {
+        //[userd setObject:@"YES" forKey:@"MusicRemind"];
+    }else{
+        AudioServicesPlaySystemSound(1007);
+    }
+    
+    /**
+     *汇报个推自定义事件
+     *actionId：用户自定义的actionid，int类型，取值90001-90999。
+     *taskId：下发任务的任务ID。
+     *msgId： 下发任务的消息ID。
+     *返回值：BOOL，YES表示该命令已经提交，NO表示该命令未提交成功。注：该结果不代表服务器收到该条命令
+     **/
+    NSLog(@"taskiD:%@",taskId);
+    [GeTuiSdk sendFeedbackMessage:90001 andTaskId:taskId andMsgId:msgId];
+}
+
+
+/** APP已经接收到“远程”通知(推送) - 透传推送消息*/
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    // 处理APNs代码，通过userInfo可以取到推送的信息（包括内容，角标，自定义参数等）。如果需要弹窗等其他操作，则需要自行编码。
+    NSLog(@"消息:%@",userInfo[@"aps"][@"alert"][@"body"]);
+    
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    [userd setObject:@"NO" forKey:@"MusicRemind"];
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 // 注册deviceToken失败，此处失败，与环信SDK无关，一般是您的环境配置或者证书配置有误

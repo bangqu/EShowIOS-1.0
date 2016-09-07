@@ -25,6 +25,10 @@
 #import "BluetoothViewController.h"//蓝牙
 #import "MusicListViewController.h"//音乐播放
 #import "DownloadViewController.h"//文件下载
+#import "NewTaskViewController.h"//系统消息
+#import "NewTweetViewController.h"//透传消息
+#import "GeTuiSdk.h"//个推
+#import <AudioToolbox/AudioToolbox.h>//系统声音
 //#import "ContectViewController.h" //通讯录
 #import "ConversationListController.h" //聊天列表
 #import "ContactListViewController.h"
@@ -32,6 +36,10 @@
 #import "ApplyViewController.h"
 #import "ChatDemoHelper.h"
 #import "UserProfileManager.h"
+/// 个推开发者网站中申请App时，注册的AppId、AppKey、AppSecret
+#define kGtAppId           @"8UGpkIpo9P81RKeopgT7B9"
+#define kGtAppKey          @"WKnc5Q0tXn8SFi0eS0GYy9"
+#define kGtAppSecret       @"RZ99JsNCwX6jlOCaP9gWV8"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -39,13 +47,16 @@ static NSString *kConversationChatter = @"ConversationChatter";
 static NSString *kGroupName = @"GroupName";
 
 #if DEMO_CALL == 1
-@interface ContentViewController () <UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,EMCallManagerDelegate>
+@interface ContentViewController () <UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,EMCallManagerDelegate,GeTuiSdkDelegate>
 #else
-@interface ContentViewController () <UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface ContentViewController () <UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,GeTuiSdkDelegate>
 #endif
 {
-     ConversationListController *_chatListVC;
-     ContactListViewController *_contactsVC;
+    ConversationListController *_chatListVC;
+    ContactListViewController *_contactsVC;
+    NSInteger messageNum;//消息数
+    NSMutableArray *messageArr;//通知消息
+    BOOL isShowMessage;//是否在显示消息界面
 }
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) UIImageView *imageLogo;
@@ -71,6 +82,7 @@ static NSString *kGroupName = @"GroupName";
     // Do any additional setup after loading the view.
     self.title = @"首页";
     self.view.backgroundColor = [UIColor whiteColor];
+    [self createData];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
     _myTableView = [UITableView new];
@@ -79,40 +91,40 @@ static NSString *kGroupName = @"GroupName";
     _myTableView.delegate = self;
     [self.view addSubview:_myTableView];
     _myTableView.sd_layout.leftEqualToView(self.view).rightEqualToView(self.view).topEqualToView(self.view).bottomEqualToView(self.view);
-    //初始化弹出菜单
-    NSArray *menuItems = @[
-                           [MenuItem itemWithTitle:@"扫一扫" iconName:@"ic_saoma" index:0],
-                           [MenuItem itemWithTitle:@"系统信息" iconName:@"ic_system" index:1],
-                           [MenuItem itemWithTitle:@"透传信息" iconName:@"ic_touchuan" index:2],
-                           ];
-    if (!_myPopMenu) {
-        _myPopMenu = [[PopMenu alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) items:menuItems];
-        _myPopMenu.perRowItemCount = 3;
-        _myPopMenu.menuAnimationType = kPopMenuAnimationTypeSina;
-    }
-    __weak typeof(self) weakSelf = self;
-    @weakify(self);
-    _myPopMenu.didSelectedItemCompletion = ^(MenuItem *selectedItem){
-        [weakSelf.myPopMenu.realTimeBlurFooter disMiss];
-        @strongify(self);
-        //改下显示style
-        [self.rightNavBtn setStyle:kFRDLivelyButtonStylePlus animated:YES];
-        if (!selectedItem) return;
-        switch (selectedItem.index) {
-            case 0:
-                [self goToNewAVFoundationVC];
-                break;
-            case 1:
-                //                [self goToNewTaskVC];
-                break;
-            case 2:
-                //                [self goToNewTweetVC];
-                break;
-            default:
-                NSLog(@"%@",selectedItem.title);
-                break;
-        }
-    };
+//    //初始化弹出菜单
+//    NSArray *menuItems = @[
+//                           [MenuItem itemWithTitle:@"扫一扫" iconName:@"ic_saoma" index:0],
+//                           [MenuItem itemWithTitle:@"系统信息" iconName:@"ic_system" index:1],
+//                           [MenuItem itemWithTitle:@"透传信息" iconName:@"ic_touchuan" index:2],
+//                           ];
+//    if (!_myPopMenu) {
+//        _myPopMenu = [[PopMenu alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) items:menuItems];
+//        _myPopMenu.perRowItemCount = 3;
+//        _myPopMenu.menuAnimationType = kPopMenuAnimationTypeSina;
+//    }
+//    __weak typeof(self) weakSelf = self;
+//    @weakify(self);
+//    _myPopMenu.didSelectedItemCompletion = ^(MenuItem *selectedItem){
+//        [weakSelf.myPopMenu.realTimeBlurFooter disMiss];
+//        @strongify(self);
+//        //改下显示style
+//        [self.rightNavBtn setStyle:kFRDLivelyButtonStylePlus animated:YES];
+//        if (!selectedItem) return;
+//        switch (selectedItem.index) {
+//            case 0:
+//                [self goToNewAVFoundationVC];
+//                break;
+//            case 1:
+//                //                [self goToNewTaskVC];
+//                break;
+//            case 2:
+//                //                [self goToNewTweetVC];
+//                break;
+//            default:
+//                NSLog(@"%@",selectedItem.title);
+//                break;
+//        }
+//    };
     
     [self setupNavBtn];
     
@@ -127,7 +139,13 @@ static NSString *kGroupName = @"GroupName";
     [ChatDemoHelper shareHelper].contactViewVC = _contactsVC;
     [ChatDemoHelper shareHelper].conversationListVC = _chatListVC;
 }
-
+//初始化数据
+-(void)createData{
+    messageArr = [NSMutableArray array];
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    messageArr = [NSMutableArray arrayWithArray:[userd objectForKey:@"messageArray"]];
+    [GeTuiSdk startSdkWithAppId:kGtAppId appKey:kGtAppKey appSecret:kGtAppSecret delegate:self];
+}
 - (void) setupNavBtn
 {
     //变化按钮
@@ -158,14 +176,122 @@ static NSString *kGroupName = @"GroupName";
 - (void)addItemClicked:(id)sender
 {
     if (_rightNavBtn.buttonStyle == kFRDLivelyButtonStylePlus) {
-        [_rightNavBtn setStyle:kFRDLivelyButtonStyleClose animated:YES];
-        [_myPopMenu showMenuAtView:kKeyWindow startPoint:CGPointMake(0, -100) endPoint:CGPointMake(0, -100)];
+        isShowMessage = YES;
+        NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+        [userd setObject:@"YES" forKey:@"MusicRemind"];
+        [self showAdd];
     } else{
         [_myPopMenu dismissMenu];
     }
 
 }
-
+//扫一扫和消息
+-(void)showAdd{
+    [_rightNavBtn setStyle:kFRDLivelyButtonStyleClose animated:YES];
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    NSArray *arr = [userd objectForKey:@"messageArray"];
+    BOOL isHide;//是否隐藏
+    messageNum = arr.count;
+    if (messageNum == 0) {
+        isHide = YES;
+    }else{
+        isHide = NO;
+    }
+    [GeTuiSdk setBadge:messageNum]; //同步本地角标值到服务器
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:messageNum]; //APP 显示角标需开发者调用系统方法进行设置
+    
+    //初始化弹出菜单
+    NSArray *menuItems = @[
+                           [MenuItem itemWithTitle:@"扫一扫" iconName:@"ic_saoma"  index:0],
+                           [MenuItem itemWithTitle:@"系统消息" iconName:@"ic_system" glowColor:nil isMessage:isHide messageNum:messageNum index:1],
+                           [MenuItem itemWithTitle:@"透传信息" iconName:@"ic_touchuan" index:2],
+                           ];
+    
+    _myPopMenu = [[PopMenu alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight-64) items:menuItems];
+    _myPopMenu.perRowItemCount = 3;
+    _myPopMenu.menuAnimationType = kPopMenuAnimationTypeSina;
+    [_myPopMenu showMenuAtView:kKeyWindow startPoint:CGPointMake(0, -100) endPoint:CGPointMake(0, -100)];
+    __weak typeof(self) weakSelf = self;
+    @weakify(self);
+    _myPopMenu.didSelectedItemCompletion = ^(MenuItem *selectedItem){
+        [weakSelf.myPopMenu.realTimeBlurFooter disMiss];
+        @strongify(self);
+        //改下显示style
+        [self.rightNavBtn setStyle:kFRDLivelyButtonStylePlus animated:YES];
+        if (!selectedItem) return;
+        switch (selectedItem.index) {
+            case 0:
+                [self goToNewAVFoundationVC];
+                break;
+            case 1:
+                [self goToNewTaskVC];
+                break;
+            case 2:
+                [self goToNewTweetVC];
+                break;
+            default:
+                NSLog(@"%@",selectedItem.title);
+                break;
+        }
+    };
+    
+}
+//系统消息
+-(void)goToNewTaskVC{
+    NewTaskViewController *vc = [[NewTaskViewController alloc]init];
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    vc.messageArr = [NSMutableArray arrayWithArray:[userd objectForKey:@"messageArray"]];
+    vc.clearBlock = ^(NSInteger index){
+        [messageArr removeObjectAtIndex:index];
+        NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+        [userd setObject:messageArr forKey:@"messageArray"];
+    };
+    isShowMessage = NO;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+//透传消息
+-(void)goToNewTweetVC{
+    NewTweetViewController *vc = [[NewTweetViewController alloc]init];
+    isShowMessage = NO;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+/** SDK收到透传消息回调 */
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
+    //收到个推消息
+    NSString *payloadMsg = nil;
+    if (payloadData) {
+        payloadMsg = [[NSString alloc] initWithBytes:payloadData.bytes
+                                              length:payloadData.length
+                                            encoding:NSUTF8StringEncoding];
+    }
+    //[[NSString alloc]initWithData:payloadData encoding:NSUTF8StringEncoding];
+    [messageArr addObject:payloadMsg];
+    NSLog(@"消息:%@", payloadMsg);
+    NSUserDefaults *userd = [NSUserDefaults standardUserDefaults];
+    [userd setObject:messageArr forKey:@"messageArray"];
+    
+    if ([[userd objectForKey:@"MusicRemind"] isEqualToString:@"NO"]) {
+        //[userd setObject:@"YES" forKey:@"MusicRemind"];
+    }else{
+        AudioServicesPlaySystemSound(1007);
+    }
+    if (isShowMessage) {
+        [_myPopMenu dismissMenu];
+        [self showAdd];
+    }else{
+        
+    }
+    /**
+     *汇报个推自定义事件
+     *actionId：用户自定义的actionid，int类型，取值90001-90999。
+     *taskId：下发任务的任务ID。
+     *msgId： 下发任务的消息ID。
+     *返回值：BOOL，YES表示该命令已经提交，NO表示该命令未提交成功。注：该结果不代表服务器收到该条命令
+     **/
+    NSLog(@"taskiD:%@",taskId);
+    
+    [GeTuiSdk sendFeedbackMessage:90001 andTaskId:taskId andMsgId:msgId];
+}
 - (void)goToNewAVFoundationVC
 {
     ScannerViewController *sanner = [[ScannerViewController alloc] init];

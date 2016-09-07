@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) MenuItem *menuItem;
-
+@property (nonatomic,strong)  UILabel *messageLab;
 @end
 
 @implementation MenuButton
@@ -42,6 +42,17 @@
         self.iconImageView.glowColor = menuItem.glowColor;
         self.iconImageView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.iconImageView.bounds));
         [self addSubview:self.iconImageView];
+        
+        self.messageLab = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 20, 20)];
+        self.messageLab.textColor = [UIColor whiteColor];
+        self.messageLab.backgroundColor = [UIColor redColor];
+        self.messageLab.font = [UIFont systemFontOfSize:14];
+        self.messageLab.textAlignment = NSTextAlignmentCenter;
+        self.messageLab.text = [NSString stringWithFormat:@"%ld",menuItem.messageNum];
+        self.messageLab.hidden = menuItem.isMessage;
+        self.messageLab.layer.cornerRadius = 10;
+        self.messageLab.clipsToBounds = YES;
+        [self addSubview:self.messageLab];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.iconImageView.frame), CGRectGetWidth(self.bounds), 35)];
         self.titleLabel.textColor = [UIColor blackColor];

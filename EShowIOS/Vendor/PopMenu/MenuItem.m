@@ -18,24 +18,29 @@
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor {
-    return [self initWithTitle:title iconName:iconName glowColor:glowColor index:-1];
+    return [self initWithTitle:title iconName:iconName glowColor:glowColor isMessage:YES messageNum:0 index:-1];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                         index:(NSInteger)index {
-    return [self initWithTitle:title iconName:iconName glowColor:nil index:index];
+   return [self initWithTitle:title iconName:iconName glowColor:nil isMessage:YES messageNum:0 index:index];
 }
 
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
+                    isMessage:(BOOL)isMessage
+                   messageNum:(NSInteger)messageNum
                         index:(NSInteger)index {
     if (self = [super init]) {
         self.title = title;
         self.iconImage = [UIImage imageNamed:iconName];
         self.glowColor = glowColor;
         self.index = index;
+        self.isMessage = isMessage;
+        self.messageNum = messageNum;
+        
     }
     return self;
 }
@@ -43,26 +48,28 @@
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName {
-    return [self itemWithTitle:title iconName:iconName glowColor:nil index:-1];
+    return  [self itemWithTitle:title iconName:iconName glowColor:nil isMessage:YES messageNum:0 index:-1];
 }
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor {
-    return [self itemWithTitle:title iconName:iconName glowColor:glowColor index:-1];
+    return [self itemWithTitle:title iconName:iconName glowColor:glowColor isMessage:YES messageNum:0 index:-1];
 }
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                         index:(NSInteger)index {
-    return [self itemWithTitle:title iconName:iconName glowColor:nil index:index];
+     return [self itemWithTitle:title iconName:iconName glowColor:nil isMessage:YES messageNum:0 index:index];
 }
 
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
+                    isMessage:(BOOL)isMessage
+                   messageNum:(NSInteger)messageNum
                         index:(NSInteger)index {
-    MenuItem *item = [[self alloc ] initWithTitle:title iconName:iconName glowColor:glowColor index:index];
+    MenuItem *item = [[self alloc ] initWithTitle:title iconName:iconName glowColor:glowColor isMessage:isMessage messageNum:messageNum index:index];
     return item;
 }
 

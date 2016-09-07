@@ -35,6 +35,17 @@
  */
 @property (nonatomic, assign) NSInteger index;
 
+/**
+ *  是否是消息
+ */
+@property (nonatomic,assign)BOOL isMessage;
+
+/**
+ *  消息数量
+ */
+@property (nonatomic,assign)NSInteger messageNum;
+
+
 #pragma mark - 初始话 init
 
 - (instancetype)initWithTitle:(NSString *)title
@@ -51,6 +62,8 @@
 - (instancetype)initWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
+                    isMessage:(BOOL)isMessage
+                   messageNum:(NSInteger)messageNum
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
 
 + (instancetype)itemWithTitle:(NSString *)title
@@ -67,6 +80,7 @@
 + (instancetype)itemWithTitle:(NSString *)title
                      iconName:(NSString *)iconName
                     glowColor:(UIColor *)glowColor
+                    isMessage:(BOOL)isMessage
+                   messageNum:(NSInteger)nessageNum
                         index:(NSInteger)index NS_AVAILABLE_IOS(2_0);
-
 @end

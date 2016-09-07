@@ -54,6 +54,7 @@ PODS:
   - GPUImage (0.1.7)
   - GRMustache (7.3.2):
     - JRSwizzle (~> 1.0)
+  - GTSDK (1.4.3)
   - HappyDNS (0.3.10)
   - HyphenateFullSDK (3.1.5)
   - JazzHands (2.0.0)
@@ -109,6 +110,7 @@ DEPENDENCIES:
   - DTCoreText
   - GPUImage
   - GRMustache
+  - GTSDK
   - HyphenateFullSDK (from `https://github.com/easemob/hyphenate-full-cocoapods.git`)
   - JazzHands (= 2.0.0)
   - JCSegmentBarController
@@ -150,6 +152,7 @@ SPEC CHECKSUMS:
   DTFoundation: 3b6b1b817d2a7fb02e7eaf2596c922a68145bd43
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
+  GTSDK: b5a84db52e4d341af3ec8bad7e1cced010a8ee62
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
   JazzHands: 00002e9b1284e7fc1ac6555012e81b8942477242
