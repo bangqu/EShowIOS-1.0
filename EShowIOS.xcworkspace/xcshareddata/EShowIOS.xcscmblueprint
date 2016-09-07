@@ -1,17 +1,17 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "6081CC10410D5F235636016BCF75E6AED9C2BF3B",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CE3169586160B4A89A195EA7F9328A889DD2DD50",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
     "46558fe7-3072-4e8b-a03d-328f12219588++5152" : {
 
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "6081CC10410D5F235636016BCF75E6AED9C2BF3B" : 0,
+    "CE3169586160B4A89A195EA7F9328A889DD2DD50" : 0,
     "46558fe7-3072-4e8b-a03d-328f12219588++5152" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "22C09B28-4AC2-4BC6-A0CD-C0CB4473B0F2",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "6081CC10410D5F235636016BCF75E6AED9C2BF3B" : "EShowIOS\/",
+    "CE3169586160B4A89A195EA7F9328A889DD2DD50" : "EShowIOS\/",
     "46558fe7-3072-4e8b-a03d-328f12219588++5152" : "EShowIOS\/EShowIOS\/Vendor\/Toast\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "EShowIOS",
@@ -26,7 +26,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/bangqu\/EShowIOS.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6081CC10410D5F235636016BCF75E6AED9C2BF3B"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CE3169586160B4A89A195EA7F9328A889DD2DD50"
     }
   ]
 }
