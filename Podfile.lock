@@ -1,0 +1,176 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AMap3DMap (4.1.0):
+    - AMapFoundation (~> 1.1)
+  - AMapFoundation (1.1.0)
+  - AMapSearch (4.1.0):
+    - AMapFoundation (~> 1.0)
+  - ASIHTTPRequest (1.8.2):
+    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
+    - ASIHTTPRequest/CloudFiles (= 1.8.2)
+    - ASIHTTPRequest/Core (= 1.8.2)
+    - ASIHTTPRequest/S3 (= 1.8.2)
+  - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/CloudFiles (1.8.2):
+    - ASIHTTPRequest/Core
+  - ASIHTTPRequest/Core (1.8.2):
+    - Reachability
+  - ASIHTTPRequest/S3 (1.8.2):
+    - ASIHTTPRequest/Core
+  - BabyBluetooth (0.6.0)
+  - CTAssetsPickerController (2.9.5)
+  - DTCoreText (1.6.17):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.10)
+  - DTFoundation/DTAnimatedGIF (1.7.10)
+  - DTFoundation/DTHTMLParser (1.7.10):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.10):
+    - DTFoundation/Core
+  - GPUImage (0.1.7)
+  - GRMustache (7.3.2):
+    - JRSwizzle (~> 1.0)
+  - HappyDNS (0.3.10)
+  - HyphenateFullSDK (3.1.5)
+  - JazzHands (2.0.0)
+  - JCSegmentBarController (0.0.7)
+  - JRSwizzle (1.0)
+  - Masonry (1.0.1)
+  - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.12)
+  - NYXImagesKit (2.3)
+  - Pingpp (2.2.6):
+    - Pingpp/Alipay (= 2.2.6)
+    - Pingpp/Core (= 2.2.6)
+    - Pingpp/UnionPay (= 2.2.6)
+  - Pingpp/Alipay (2.2.6):
+    - Pingpp/Core
+  - Pingpp/Core (2.2.6):
+    - Pingpp/Network
+  - Pingpp/Network (2.2.6)
+  - Pingpp/UnionPay (2.2.6):
+    - Pingpp/Core
+  - pop (1.0.9)
+  - PureLayout (3.0.2)
+  - Qiniu (7.0.20):
+    - AFNetworking (~> 2.0)
+    - HappyDNS (~> 0.3)
+  - Reachability (3.2)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - RegexKitLite (4.0)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - TBXML (1.5)
+  - TOWebViewController (2.2.6):
+    - TOWebViewController/Core (= 2.2.6)
+  - TOWebViewController/Core (2.2.6)
+  - TPKeyboardAvoiding (1.3)
+  - TTTAttributedLabel (1.13.4)
+  - UMengSocialCOM (5.2.1)
+
+DEPENDENCIES:
+  - AFNetworking (= 2.6.3)
+  - AMap3DMap
+  - AMapSearch
+  - ASIHTTPRequest
+  - BabyBluetooth (~> 0.6.0)
+  - CTAssetsPickerController
+  - DTCoreText
+  - GPUImage
+  - GRMustache
+  - HyphenateFullSDK (from `https://github.com/easemob/hyphenate-full-cocoapods.git`)
+  - JazzHands (= 2.0.0)
+  - JCSegmentBarController
+  - Masonry
+  - MBProgressHUD
+  - MJRefresh
+  - NYXImagesKit (= 2.3)
+  - Pingpp
+  - pop
+  - PureLayout
+  - Qiniu
+  - ReactiveCocoa
+  - RegexKitLite
+  - SDWebImage
+  - TBXML
+  - TOWebViewController
+  - TPKeyboardAvoiding
+  - TTTAttributedLabel
+  - UMengSocialCOM (~> 5.2.1)
+
+EXTERNAL SOURCES:
+  HyphenateFullSDK:
+    :git: https://github.com/easemob/hyphenate-full-cocoapods.git
+
+CHECKOUT OPTIONS:
+  HyphenateFullSDK:
+    :commit: dabc2296bf03377a211450b3f1a813feac27e57d
+    :git: https://github.com/easemob/hyphenate-full-cocoapods.git
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AMap3DMap: 048e1ef05ce87a486d6bf4f09a4e2285356b3a16
+  AMapFoundation: 15db20567e6512422a086a01b42a88b145bc2500
+  AMapSearch: cb4722480d2d4331a032d43bd1070ed0fa55dac9
+  ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
+  BabyBluetooth: 998483310b5f44724d97c2fd47e82ed1b7e412de
+  CTAssetsPickerController: b413fece2194ae3dbf22fbc544cf6f2a6d516a4d
+  DTCoreText: 3ea8bba23dd2141ba18adb227a7dd33a822df1c4
+  DTFoundation: 3b6b1b817d2a7fb02e7eaf2596c922a68145bd43
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  GRMustache: ebe6104fd30a6d22c1f36af131e19e2dbf7cd292
+  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
+  HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
+  JazzHands: 00002e9b1284e7fc1ac6555012e81b8942477242
+  JCSegmentBarController: da7988b700877940e09403be905bea87536b8ffe
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  NYXImagesKit: 8163e3335a40eaa173ca5bbbf81fafb57d3947eb
+  Pingpp: d1f2e98467cc6658cf533406908fc699bb28420c
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
+  Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  TBXML: 9f9dadb239f2f2af1dadb87fe43a0ce6e479379a
+  TOWebViewController: a29908019f7e0e0f8eccfab8a1ee8dcdf4fc5aac
+  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
+  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
+
+COCOAPODS: 0.39.0
