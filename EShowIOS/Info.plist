@@ -142,6 +142,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>aps-environment</key>
+	<string>production</string>
 	<key>qq.com</key>
 	<dict>
 		<key>NSIncludesSubdomains</key>

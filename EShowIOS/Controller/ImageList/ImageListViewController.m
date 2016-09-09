@@ -11,6 +11,8 @@
 #import "ImageListModel.h"
 #import "MJExtension.h"
 #import "MJRefresh.h"
+#import "DowmMenuView.h"
+#import "FTPopOverMenu.h"
 #import "FRDLivelyButton.h"
 #import "SDRotationLoopProgressView.h"
 #import "ImageListCollectionViewCell.h"
@@ -45,10 +47,9 @@
                                 kFRDLivelyButtonColor: [UIColor colorWithRed:(247 / 255.0f) green:(105 / 255.0f) blue:(86 / 255.0f) alpha:1]
                                 }];
     [_rightNavBtn setStyle:kFRDLivelyButtonStylePlus animated:NO];
-    [_rightNavBtn addTarget:self action:@selector(addItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_rightNavBtn addTarget:self action:@selector(onNavButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavBtn];
     self.navigationItem.rightBarButtonItem = buttonItem;
-
     _page = 1;
     _dataArray = [[NSMutableArray alloc] init];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
@@ -84,10 +85,35 @@
     }
     return [resArr copy];
 }
-- (void)addItemClicked:(id)sender
+
+-(void)onNavButtonTapped:(UIBarButtonItem *)sender event:(UIEvent *)event
 {
-    ImageSaveViewController *save = [[ImageSaveViewController alloc] init];
-    [self.navigationController pushViewController:save animated:YES];
+#ifdef IfMethodOne
+    CGRect rect = [self.navigationController.navigationBar convertRect:[event.allTouches.anyObject view].frame toView:[[UIApplication sharedApplication] keyWindow]];
+    
+    [FTPopOverMenu showFromSenderFrame:rect
+                              withMenu:@[@"上传相册"]
+                        imageNameArray:@[@"share"]
+                             doneBlock:^(NSInteger selectedIndex) {
+                                 NSLog(@"done");
+                             } dismissBlock:^{
+                                 NSLog(@"cancel");
+                             }];
+    
+    
+#else
+    
+    [FTPopOverMenu showFromEvent:event
+                        withMenu:@[@"上传相册"]
+                  imageNameArray:@[@"share"]
+                       doneBlock:^(NSInteger selectedIndex) {
+                           ImageSaveViewController *save = [[ImageSaveViewController alloc] init];
+                           [self.navigationController pushViewController:save animated:YES];
+                       } dismissBlock:^{
+                           
+                       }];
+    
+#endif
 }
 - (void)initCollectionView
 {

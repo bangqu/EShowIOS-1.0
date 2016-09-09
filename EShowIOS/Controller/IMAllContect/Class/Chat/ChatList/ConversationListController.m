@@ -22,6 +22,10 @@
 //#import "RedPacketChatViewController.h"
 #import "ChatDemoHelper.h"
 
+
+#import "FTPopOverMenu.h"
+#import "FRDLivelyButton.h"
+
 @implementation EMConversation (search)
 
 //根据用户昵称,环信机器人名称,群名称进行搜索
@@ -48,6 +52,7 @@
 @property (nonatomic, strong) EMSearchBar           *searchBar;
 
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
+@property (nonatomic, strong) FRDLivelyButton *rightNavBtn;
 
 @end
 
@@ -56,6 +61,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _rightNavBtn = [[FRDLivelyButton alloc] initWithFrame:CGRectMake(0,0,18.5,18.5)];
+    [_rightNavBtn setOptions:@{ kFRDLivelyButtonLineWidth: @(1.0f),
+                                kFRDLivelyButtonColor: [UIColor colorWithRed:(247 / 255.0f) green:(105 / 255.0f) blue:(86 / 255.0f) alpha:1]
+                                }];
+    [_rightNavBtn setStyle:kFRDLivelyButtonStylePlus animated:NO];
+    [_rightNavBtn addTarget:self action:@selector(onNavButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightNavBtn];
+    self.navigationItem.rightBarButtonItem = buttonItem;
+
     // Do any additional setup after loading the view.
     self.showRefreshHeader = YES;
     self.delegate = self;
@@ -70,6 +84,34 @@
     [self searchController];
     
     [self removeEmptyConversationsFromDB];
+}
+-(void)onNavButtonTapped:(UIBarButtonItem *)sender event:(UIEvent *)event
+{
+#ifdef IfMethodOne
+    CGRect rect = [self.navigationController.navigationBar convertRect:[event.allTouches.anyObject view].frame toView:[[UIApplication sharedApplication] keyWindow]];
+    
+    [FTPopOverMenu showFromSenderFrame:rect
+                              withMenu:@[@"扫一扫",@"发起聊天"]
+                        imageNameArray:@[@"ic_saoma",@"ic_system"]
+                             doneBlock:^(NSInteger selectedIndex) {
+                                 NSLog(@"done");
+                             } dismissBlock:^{
+                                 NSLog(@"cancel");
+                             }];
+    
+    
+#else
+    
+    [FTPopOverMenu showFromEvent:event
+                        withMenu:@[@"扫一扫",@"发起聊天"]
+                  imageNameArray:@[@"ic_saoma",@"ic_system"]
+                       doneBlock:^(NSInteger selectedIndex) {
+
+                       } dismissBlock:^{
+                           
+                       }];
+    
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated

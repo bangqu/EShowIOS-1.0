@@ -11,6 +11,7 @@
 #import "WebViewController.h"
 #import "LoginViewController.h"
 #import "SettingWebViewController.h"
+#import "ApplyViewController.h"
 @interface MeSettingViewController () <UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *myTableView;
 @end
@@ -137,6 +138,21 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"退出系统" message:@"是否确定退出登录" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            EMError *error = [[EMClient sharedClient] logout:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                [weakSelf hideHud];
+                if (error != nil) {
+                    NSLog(@"%@",error.errorDescription);
+//                    [weakSelf showHint:error.errorDescription];
+                }
+                else{
+                    [[ApplyViewController shareController] clear];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+                }
+            });
+        });
+
     }
 }
 

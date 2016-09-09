@@ -276,6 +276,8 @@
 		31D2D6781D791E64009F16BE /* ContectInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2D6731D791E64009F16BE /* ContectInfomationViewController.m */; };
 		31D2D6791D791E64009F16BE /* ChatOrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2D6751D791E64009F16BE /* ChatOrganizationViewController.m */; };
 		31D2D67A1D791E64009F16BE /* ContectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D2D6771D791E64009F16BE /* ContectViewController.m */; };
+		31D95C8A1D81530C001A9FE3 /* DowmMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D95C891D81530C001A9FE3 /* DowmMenuView.m */; };
+		31D95C8E1D81609D001A9FE3 /* FTPopOverMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D95C8D1D81609D001A9FE3 /* FTPopOverMenu.m */; };
 		A31A2DA01CC08EF1002BB8D3 /* LFLUISegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A31A2D9F1CC08EF1002BB8D3 /* LFLUISegmentedControl.m */; };
 		A32E76521CBBAB6D00CCF215 /* CategorySearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A32E764F1CBBAB6D00CCF215 /* CategorySearchBar.m */; };
 		A32E76531CBBAB6D00CCF215 /* TopicHotkeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = A32E76511CBBAB6D00CCF215 /* TopicHotkeyView.m */; };
@@ -932,6 +934,10 @@
 		31D2D6751D791E64009F16BE /* ChatOrganizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatOrganizationViewController.m; sourceTree = "<group>"; };
 		31D2D6761D791E64009F16BE /* ContectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContectViewController.h; sourceTree = "<group>"; };
 		31D2D6771D791E64009F16BE /* ContectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContectViewController.m; sourceTree = "<group>"; };
+		31D95C881D81530C001A9FE3 /* DowmMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DowmMenuView.h; sourceTree = "<group>"; };
+		31D95C891D81530C001A9FE3 /* DowmMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DowmMenuView.m; sourceTree = "<group>"; };
+		31D95C8C1D81609D001A9FE3 /* FTPopOverMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTPopOverMenu.h; sourceTree = "<group>"; };
+		31D95C8D1D81609D001A9FE3 /* FTPopOverMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTPopOverMenu.m; sourceTree = "<group>"; };
 		8170E20B6B31FC678F95F737 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		849B80BB8AF5A42F2D695742 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A31A2D9E1CC08EF1002BB8D3 /* LFLUISegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLUISegmentedControl.h; sourceTree = "<group>"; };
@@ -2267,6 +2273,8 @@
 				3106E5731D66EE8B00358DCC /* UIImage+ImageEffects.m */,
 				31239ED21D780B1D007B225E /* ContectChineseToPinyin.h */,
 				31239ED31D780B1D007B225E /* ContectChineseToPinyin.m */,
+				31D95C881D81530C001A9FE3 /* DowmMenuView.h */,
+				31D95C891D81530C001A9FE3 /* DowmMenuView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2294,6 +2302,15 @@
 				31D2D6771D791E64009F16BE /* ContectViewController.m */,
 			);
 			path = Contect;
+			sourceTree = "<group>";
+		};
+		31D95C8B1D81609D001A9FE3 /* FTPopOverMenu */ = {
+			isa = PBXGroup;
+			children = (
+				31D95C8C1D81609D001A9FE3 /* FTPopOverMenu.h */,
+				31D95C8D1D81609D001A9FE3 /* FTPopOverMenu.m */,
+			);
+			path = FTPopOverMenu;
 			sourceTree = "<group>";
 		};
 		A31A2D9D1CC08EF1002BB8D3 /* LFLUISegmentedControl */ = {
@@ -2680,6 +2697,7 @@
 		A3EDB63C1CAE599700C8A204 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				31D95C8B1D81609D001A9FE3 /* FTPopOverMenu */,
 				31680E721D7EAB1900EEBD26 /* EaseUI */,
 				310C67321D6D2E3A009430C5 /* ZFDownload */,
 				319643991D643CFF0047A8FC /* SVProgressHUD */,
@@ -3303,6 +3321,7 @@
 				A3E8E1661CB5117E009D0CB5 /* ChineseToPinyin.m in Sources */,
 				31081A4B1D597FC80087A126 /* SetMobileViewController.m in Sources */,
 				319643981D6410DE0047A8FC /* BluetoothView.m in Sources */,
+				31D95C8A1D81530C001A9FE3 /* DowmMenuView.m in Sources */,
 				31680FDD1D7EAB1900EEBD26 /* PSTGridLayoutSection.m in Sources */,
 				3117EE551D619CE20006A42E /* ScanResultViewController.m in Sources */,
 				316810411D7EAED400EEBD26 /* BaseTableViewCell.m in Sources */,
@@ -3423,6 +3442,7 @@
 				31042A091D58CEFF00858EC4 /* ImageListModel.m in Sources */,
 				A3EDB6341CAE54B300C8A204 /* IntroductionViewController.m in Sources */,
 				3106E5691D66EA5B00358DCC /* AudioPlayerViewController.m in Sources */,
+				31D95C8E1D81609D001A9FE3 /* FTPopOverMenu.m in Sources */,
 				316810451D7EAED400EEBD26 /* BaseViewController.m in Sources */,
 				31680FC61D7EAB1900EEBD26 /* EMSDWebImageManager.m in Sources */,
 				A3EDB6BF1CAE599700C8A204 /* RDVTabBar.m in Sources */,
@@ -3547,7 +3567,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhang Lei (FJGT54TZ5Q)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3569,7 +3589,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1fc02aed-054c-4ede-a748-e478fba48673";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3593,7 +3613,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhang Lei (FJGT54TZ5Q)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3608,7 +3628,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1fc02aed-054c-4ede-a748-e478fba48673";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

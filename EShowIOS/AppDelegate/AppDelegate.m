@@ -190,14 +190,17 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     }
 }
 #pragma mark - App Delegate
-
+// 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [application registerForRemoteNotifications];
+}
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"token----%@", token);
-    
+    NSLog(@"\n>>>[DeviceToken Success]:%@\n\n", token);
     //向个推服务器注册deviceToken
     [GeTuiSdk registerDeviceToken:token];
     //---------------//
@@ -215,6 +218,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     /// Background Fetch 恢复SDK 运行
     [GeTuiSdk resume];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+#pragma mark - GeTuiSdkDelegate
+
+/** SDK启动成功返回cid */
+- (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
+    // [ GTSdk ]：个推SDK已注册，返回clientId
+    NSLog(@">>[GTSdk RegisterClient]:%@", clientId);
 }
 /** SDK收到透传消息回调 */
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
