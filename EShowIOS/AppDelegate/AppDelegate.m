@@ -54,7 +54,7 @@
     [UMSocialData setAppKey:@"56ceca68e0f55a2ece000d68"];
     //友盟第三方登录
     [UMSocialQQHandler setQQWithAppId:@"1105423356" appKey:@"TdaUYNbEZM2AHdEM" url:@"http://www.umeng.com/social"];
-    [UMSocialWechatHandler setWXAppId:@"wxe0304d6eff6e6307" appSecret:@"7c769ad88fcd6dd6b4a6f7c2a8f5426e" url:@"http://www.umeng.com/social"];
+    [UMSocialWechatHandler setWXAppId:@"wx924e88ce094d3c17" appSecret:@"9232387cdab41d34db6b741503cdb3c7" url:@"http://www.umeng.com/social"];
     //gaode
     [AMapServices sharedServices].apiKey = @"f912d3064492b7d1102a9bc6de5b77c1";
     //ping++ debug模式

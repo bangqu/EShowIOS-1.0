@@ -62,7 +62,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    [UIScreen mainScreen].bounds.size.height;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(ScreenWidth-70, 55, 50, 30);
     [button setTitle:@"跳过" forState:UIControlStateNormal];
